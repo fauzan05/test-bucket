@@ -13,13 +13,16 @@ import (
 func main() {
 	// Konfigurasi koneksi ke SeaweedFS Localhost
 	endpoint := "127.0.0.1:9001"
-	accessKeyID := "any"     // SeaweedFS default: boleh isi bebas
-	secretAccessKey := "any" // SeaweedFS default: boleh isi bebas
+	// accessKeyID := "any"     // SeaweedFS default: boleh isi bebas
+	// secretAccessKey := "any" // SeaweedFS default: boleh isi bebas
 	useSSL := false          // Kita pakai HTTP biasa di localhost
 
 	// 1. Inisialisasi Client
+	// Salah karena server belum punya database user
+	// Benar: Masuk sebagai anonim (aman karena dilindungi localhost firewall)
+	
 	minioClient, err := minio.New(endpoint, &minio.Options{
-		Creds:  credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
+		Creds: credentials.NewStaticV4("", "", ""),
 		Secure: useSSL,
 	})
 	if err != nil {
